@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Job Application Form</title>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      background-color: #f2f2f2; /* Background color for the entire page */
+    }
+    .container {
+      display: flex;
+      justify-content: space-between;
+      min-height: 100%;
+      box-sizing: border-box;
+      padding-bottom: 20px;
+    }
+    .form-container {
+      flex: 1;
+      margin-right: 20px;
+      padding: 20px;
+      background-color: #ffb1b1; /* Left part background color */
+    }
+    .entries-container {
+      flex: 1;
+      background-color: #a0ffbc; /* Right part background color */
+      padding: 20px;
+    }
+    .form-container label {
+      display: block;
+      margin-top: 10px;
+    }
+    .form-container input,
+    .form-container textarea {
+      width: 90%;
+      padding: 5px;
+      margin-top: 5px;
+    }
+    .form-container button {
+      margin-top: 10px;
+      padding: 5px 10px;
+    }
+    .entries-container h3 {
+      margin-top: 0;
+    }
+    .entries-container ul {
+      padding-left: 20px;
+    }
+    .required {
+      color: red;
+    }
+    #submit{
+        background-color:rgb(255, 255, 255);
+        color:black;
+        cursor:pointer;
+        border-radius:4px;
+    }
+    #submit:hover{
+        background-color:black;
+        color:white;
+    }
+    h2{
+        text-align:center;
+    }
+    
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="form-container">
+      <h2>Job Application Form</h2>
+      
+      <form id="application-form" onsubmit="event.preventDefault(); displayEntries();">
+        <label for="name">Name: <span class="required">*</span></label>
+        <input type="text" id="name" placeholder="Enter your Name" required>
+        
+        <label for="email">Email: <span class="required">*</span></label>
+        <input type="email" id="email" placeholder="Enter Your Email id" required>
+        
+        <label for="phone">Phone: <span class="required">*</span></label>
+        <input type="tel" id="phone" placeholder="Enter your mobile number" pattern="[0-9]{10}" required>
+        
+        <label for="resume">Resume: <span class="required">*</span></label>
+        <input type="file" id="resume" required>
+        
+        <label for="cover-letter">Cover Letter:</label>
+        <textarea id="cover-letter"></textarea>
+        
+        <button type="submit" id="submit">Submit</button>
+      </form>
+    </div>
+
+    <div class="entries-container">
+      <h3>Entries:</h3>
+      <ul id="entries-list"></ul>
+    </div>
+  </div>
+
+  <script>
+    function displayEntries() {
+      var name = document.getElementById("name").value;
+      var email = document.getElementById("email").value;
+      var phone = document.getElementById("phone").value;
+      var resume = document.getElementById("resume").files[0].name;
+      var coverLetter = document.getElementById("cover-letter").value;
+
+      var entry = document.createElement("li");
+      entry.innerHTML = "<strong>Name:</strong> " + name +
+                        "<br><strong>Email:</strong> " + email +
+                        "<br><strong>Phone:</strong> " + phone +
+                        "<br><strong>Resume:</strong> " + resume;
+
+      if (coverLetter !== "") {
+        entry.innerHTML += "<br><strong>Cover Letter:</strong> " + coverLetter;
+      }
+      const space=document.createElement('br');
+      document.getElementById("entries-list").appendChild(space);
+      document.getElementById("entries-list").appendChild(entry);
+
+      document.getElementById("application-form").reset();
+    }
+  </script>
+</body>
+</html>
